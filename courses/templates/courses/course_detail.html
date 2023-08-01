@@ -1,0 +1,48 @@
+{% extends 'courses/base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">{{ course.title }}</h2>
+        <p class="card-text">{{ course.description }}</p>
+        <p class="card-text">{{ course.price }}</p>
+        <p class="card-text">{{ course.start_date }}</p>
+        <p class="card-text">{{ course.end_date }}</p>
+    </div>
+</div>
+<hr>
+
+<h3>Reviews</h3>
+{% for review in reviews %}
+<div class="card nt-3">
+    <div class="card-body">
+        <h5 class = "card-title"> {{ review.user.username }}</h5>
+        <p class="card-text">Rating: {{ review.rating }}</p>
+        <p class="card-text">Comment: {{ review.comment }}</p>
+
+    </div>
+</div>
+{% endfor %}
+
+<h3> Add review</h3>
+<form method="post" action="{% url 'add-review' course.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <select class="form-control" id="rating" name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select>
+    </div>
+     <div class="form-group">
+        <label for="comment">Comment</label>
+         <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+     </div>
+    <button type="submit" class="btn btn-primary">Add review</button>
+</form>
+
+{% endblock %}
