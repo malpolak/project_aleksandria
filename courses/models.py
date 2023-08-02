@@ -14,7 +14,7 @@ class Course(models.Model):
 
 class Enrollment(models.Model):
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="enrollments")
     enrollment_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
